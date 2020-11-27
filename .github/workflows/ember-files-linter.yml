@@ -21,4 +21,4 @@ jobs:
     - name: LINT HBS FILES
       id: hbs-lint
       run: |
-        ./node_modules/.bin/ember-template-lint .
+        DISABLE_GITHUB_ACTIONS_ANNOTATIONS=true ./node_modules/.bin/ember-template-lint .
