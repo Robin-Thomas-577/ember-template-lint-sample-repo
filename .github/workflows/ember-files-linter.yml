@@ -32,6 +32,5 @@ jobs:
     # with DISABLE_GITHUB_ACTIONS_ANNOTATIONS=false was showing double annotation in PR
     - name: LINT HBS FILES
       id: hbs-lint
-      if:  env.HAS_HBS_CHANGE == 'true'
       run: |
         ./node_modules/.bin/ember-template-lint $(echo -e $FILES_MODIFIED | grep 'frontend/.*\.hbs$')
