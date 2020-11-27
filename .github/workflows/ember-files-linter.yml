@@ -1,0 +1,37 @@
+name: Frontend
+on:
+  pull_request:
+
+jobs:
+  ember-linter:
+    name: Ember linter
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.19.x'
+
+    - name: Get file changes
+      id: get_file_changes
+      uses: trilom/file-changes-action@v1.2.3
+      with:
+        output: ' \\n '
+      
+    - name: Get only added and modified files
+      run: |
+        files=$(echo "${{ steps.get_file_changes.outputs.files_added }}\n${{ steps.get_file_changes.outputs.files_modified }}")
+        echo "FILES_MODIFIED=$files" >> $GITHUB_ENV
+
+    - name: Install packages
+      run: npm install
+
+    # with DISABLE_GITHUB_ACTIONS_ANNOTATIONS=false was showing double annotation in PR
+    - name: LINT HBS FILES
+      id: hbs-lint
+      if:  env.HAS_HBS_CHANGE == 'true'
+      run: |
+        ./node_modules/.bin/ember-template-lint $(echo -e $FILES_MODIFIED | grep 'frontend/.*\.hbs$')
