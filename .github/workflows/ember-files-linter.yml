@@ -5,7 +5,7 @@ on:
 jobs:
   ember-linter:
     name: Ember linter
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -18,7 +18,6 @@ jobs:
     - name: Install packages
       run: npm install
 
-    # with DISABLE_GITHUB_ACTIONS_ANNOTATIONS=false was showing double annotation in PR
     - name: LINT HBS FILES
       id: hbs-lint
       run: |
