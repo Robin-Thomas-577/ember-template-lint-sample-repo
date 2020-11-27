@@ -33,4 +33,4 @@ jobs:
     - name: LINT HBS FILES
       id: hbs-lint
       run: |
-        ./node_modules/.bin/ember-template-lint $(echo -e $FILES_MODIFIED | grep 'frontend/.*\.hbs$')
+        ./node_modules/.bin/ember-template-lint $(echo -e $FILES_MODIFIED | grep '.*\.hbs$')
